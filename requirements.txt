@@ -1,1 +1,2 @@
 art >= 6.0
+simple-term-menu >= 1.2
