@@ -1,2 +1,4 @@
 art >= 6.0
 simple-term-menu >= 1.2
+questionary >= 1.10.0
+prompt_toolkit >= 3.0.39
