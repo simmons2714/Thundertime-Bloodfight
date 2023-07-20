@@ -1,6 +1,10 @@
 from art import *
 from textwrap import wrap
 import sys, time
+import questionary
+
+import nouns
+import cmds
 
 def delay_print(s):
     for c in s:
@@ -22,38 +26,29 @@ def into_story():
     print('Location: Nexus Rift Arena, Astral Citadel')
     print("Dear <Person Name Here>,")
 
-    tourn_sentence1 = "We are pleased to extend an exclusive invitation to you on behalf of the renowned Magical Academy. You have been recognized as one of the most promising mages, and we believe that you have what it takes to compete in the Cosmic Tournament."
-    tourn_sentence2 = 'Prepare to embark on an extraordinary journey, where magic and space converge in a spectacle unlike any other. The Nexus Rift, a mystical anomaly that intertwines realms, will serve as the battleground for this legendary event. It is within this enigmatic gateway that you will unlock the true extent of your magical abilities and uncover the untold secrets of the universe.'
-    tourn_sentence3 = 'The Cosmic Tournament is a rare opportunity to showcase your skills, engage with fellow enchanters from across the galaxy, and forge lasting alliances. Engross yourself in thrilling challenges, navigate treacherous puzzles, and face formidable opponents on your path to victory.'
-    tourn_sentence4 = 'Remember, the fate of the galaxy hangs in the balance. Dark forces threaten to disrupt the harmonious coexistence of magic and technology. It is up to you, the chosen ones, to restore order and safeguard the Nexus Rift from impending doom.'
-    tourn_sentence5 = 'Join us, and let your name be etched into the annals of history as a champion of the Cosmic Tournament!'
-    tourn_sentence6 = 'To confirm your participation, kindly reply to this invitation at your earliest convenience. Upon acceptance, further instructions will be provided regarding travel arrangements and tournament regulations.'
-    tourn_sentence7 = 'May your spells be powerful, your resolve unyielding, and your destiny entwined with the stars!'
+    tourn_sentence1 = "We are pleased to extend an exclusive invitation to you on behalf of the renowned Magical Academy. You have been recognized as one of the most promising mages, and we believe that you have what it takes to compete in the Cosmic Tournament.\n"
+    tourn_sentence2 = 'Prepare to embark on an extraordinary journey, where magic and space converge in a spectacle unlike any other. The Nexus Rift, a mystical anomaly that intertwines realms, will serve as the battleground for this legendary event. It is within this enigmatic gateway that you will unlock the true extent of your magical abilities and uncover the untold secrets of the universe.\n'
+    tourn_sentence3 = 'The Cosmic Tournament is a rare opportunity to showcase your skills, engage with fellow enchanters from across the galaxy, and forge lasting alliances. Engross yourself in thrilling challenges, navigate treacherous puzzles, and face formidable opponents on your path to victory.\n'
+    tourn_sentence4 = 'Remember, the fate of the galaxy hangs in the balance. Dark forces threaten to disrupt the harmonious coexistence of magic and technology. It is up to you, the chosen ones, to restore order and safeguard the Nexus Rift from impending doom.\n'
+    tourn_sentence5 = 'Join us, and let your name be etched into the annals of history as a champion of the Cosmic Tournament!\n'
+    tourn_sentence6 = 'To confirm your participation, kindly reply to this invitation at your earliest convenience. Upon acceptance, further instructions will be provided regarding travel arrangements and tournament regulations.\n'
+    tourn_sentence7 = 'May your spells be powerful, your resolve unyielding, and your destiny entwined with the stars!\n'
 
-
-    reading = True
     borderprint(tourn_sentence1)
-    usr_input = ''
 
-    while reading:
-        usr_input = input("Continue reading? ")
-        usr_input.lower()
-        if usr_input in ('y', 'n', 'yes', 'no', 'ye'):
-            if(usr_input == 'y' or usr_input == 'yes' or usr_input == 'ye'):
-                borderprint(tourn_sentence2)
-                borderprint(tourn_sentence3)
-                borderprint(tourn_sentence4)
-                borderprint(tourn_sentence5)
-                borderprint(tourn_sentence6)
-                borderprint(tourn_sentence7)
-                print('Yours magically,')
-                tprint("The Starfire Corporation")
-                reading = False
-            else:
-                reading = False
-                break
-        else:
-            print('Invalid choice. Try again.')
+    read = questionary.confirm("Continue reading?").ask()
+
+    if read:
+        borderprint(tourn_sentence2)
+        borderprint(tourn_sentence3)
+        borderprint(tourn_sentence4)
+        borderprint(tourn_sentence5)
+        borderprint(tourn_sentence6)
+        borderprint(tourn_sentence7)
+        print('Yours magically,')
+        tprint("The Starfire Corporation")
+
+    nouns.create_noun('konane', "Kōnane was born into a world plagued by a cyberpunk dystopia, where the power dynamics were firmly controlled by a few influential corporations. In this oppressive society, access to space travel was restricted, limited only to these corporations and daring pirates who had managed to steal ships. Growing up in the depths of this dystopia, Kōnane witnessed the exploitation and suppression of those who possessed natural access to magic. The corporations recognized the potential of magic as a valuable resource, and those born with innate magical abilities were seen as valuable commodities to be exploited for profit. Despite the oppressive regime, Kōnane's thirst for knowledge and rebellion against the status quo led them on a path of discovery. Through secretive encounters with underground factions and their own relentless pursuit of knowledge, Kōnane uncovered the existence of the Nexus Rift—a phenomenon that could potentially unlock the full extent of magical abilities. Recognizing the potential of the Nexus Rift as a source of liberation, Kōnane devoted themselves to uncovering its secrets and harnessing its power. They became a skilled mage, acquiring mastery over various magical disciplines and developing a deep understanding of the balance between magic and technology. In their travels, Kōnane encountered individuals from all walks of life, witnessing firsthand the suffering caused by the exploitation of magic and the limitations imposed on space travel. The knowledge to learn magic had been deliberately kept hidden from the public to maintain control and prevent uprisings against the oppressive regime. Realizing the need for change, Kōnane became an advocate for empowering individuals to harness their magical abilities. They believed that by uncovering the secrets of the Nexus Rift and granting access to magic for all, a revolution against the corporate tyranny could be sparked. When Kōnane encounters the player, they see potential and an opportunity for change. While understanding the risks and dangers involved, Kōnane guides the player on their journey through the Nexus Rift, empowering them to explore the universe and discover the magic hidden within. They become a mentor and ally, imparting their knowledge and assisting the player in their quest to challenge the oppressive forces that seek to exploit magical abilities.")
 
     print(f"Kōnane: ",end='')
     delay_print("Hold up, pal! I noticed you didn't respond to that tournament flyer. What's the deal?\n")
@@ -75,21 +70,23 @@ def into_story():
     #print("Join Kōnane's Underground Movement: You decide to align yourself with Kōnane and their underground movement aimed at liberating magic from the corporations' grasp. This choice involves working closely with Kōnane, carrying out missions, and gathering allies to challenge the oppressive regime and expose the truth behind the exploitation of magic.")
     print()
 
-    print("Before you make your choice, you need to choose your stats. You also need to name your player. Unless you want to be called player, that's up to you.")
-    print("Right, so if you played Fallout, you'll understand that stat system. I'm 'borrowing' the SPECIAL system. If you pay me, I'll max out your stats. jk jk ")
-    print()
+    story_choices_list = ['Accept the invite', 'Find a ship', 'Join Kōnane']
+    return story_choices_list
 
 
 def story_path1_find():
-    delay_print("Player: Excuse me, are you Durga? I've heard you're the captain of a mining ship around here.")
-    delay_print("Durga: Aye, that's me. What's your business with me?")
-    delay_print("Player: I'm on a quest to explore the hidden realms of the universe, beyond the control of the corporations. I'm seeking a ship to get there. I was wondering if there's any possibility of joining your mining operation and earning my way aboard your vessel.")
-    delay_print("Durga: Hold on there, friend. I've heard stories about mages like you. Naturally gifted, causing all sorts of trouble, and attracting the unwanted attention of the Starfire Corporation. I can't afford to have my crew and operations in their spotlight.")
-    delay_print("Player: I understand your concerns, but I assure you I'm not seeking the limelight or trying to draw attention. I have my own reasons for wanting to explore the hidden realms, away from the corporations' grip. I can offer my magical abilities discreetly, for the benefit of the crew and the success of the mission.")
-    delay_print("Durga: That's a bold claim. The last thing I need is trouble. If I let you on board, it's with the understanding that you keep a low profile, no flashy displays of magic. And if any heat comes our way, you're gone. Understood?")
-    delay_print("Player: Absolutely, Durga. I appreciate your caution, and I won't jeopardize your crew or your operation. I seek only to contribute and earn my place, using my magic responsibly and discreetly.")
-    delay_print("Durga: We'll see about that. We've got a dangerous mining operation in the Outer Rim coming up. If you can prove your worth and keep your magic in check, maybe I'll consider letting you join us. But one wrong move, and you're out. Agreed?")
-    delay_print("Player: Agreed, Durga. I won't let you down. Just give me the chance to show you what I can do.")
+    nouns.add_noun('durga', "Durga, renowned as a fearless captain in the unforgiving reaches of space, has a reputation for leading a tight-knit crew aboard her mining ship. Born and raised in the cyberpunk dystopia, Durga witnessed firsthand the corrupt grip of the corporations and the exploitation of magic by the Starfire Corporation. Durga's journey into the mining trade began as a means to escape the suffocating control of the corporations. In the depths of the asteroid fields, she found freedom and a way to carve her own path. Over time, she honed her skills as a resourceful captain, navigating treacherous celestial terrain, and building a crew that shared her vision of independence. Despite her reservations about naturally gifted mages, Durga recognized the potential value of magic in the uncharted realms. However, she had witnessed firsthand the consequences that befell those who drew too much attention. To protect her crew and maintain their freedom, she adopted a strict policy of secrecy, avoiding confrontations with the Starfire Corporation at all costs. Through her resourcefulness and cunning, Durga has managed to maintain a low profile, evading the radar of the powerful corporations. Her ship became a haven for those seeking refuge from the oppressive regime, and she developed a reputation for being fair but unyielding in her determination to protect her crew. Durga's crew respects her leadership, valuing her strong intuition, unwavering principles, and commitment to their safety. They have become a family, bound together by shared goals and a desire for liberation from corporate control. While cautious when it comes to mages, Durga recognizes that the player's desire to explore the hidden realms aligns with her own yearning for freedom. Through the player's actions, they have the chance to prove themselves and earn a place among Durga's trusted crew. As the player's journey unfolds, Durga's steadfastness and resilience will be tested, forcing her to confront her deepest fears and make difficult decisions. Together with the player, she will navigate the challenges of the universe and strive to protect her crew's independence while uncovering the truth behind the exploitation of magic.")
+    nouns.remove_noun('konane')
+
+    delay_print("Player: Excuse me, are you Durga? I've heard you're the captain of a mining ship around here.\n")
+    delay_print("Durga: Aye, that's me. What's your business with me?\n")
+    delay_print("Player: I'm on a quest to explore the hidden realms of the universe, beyond the control of the corporations. I'm seeking a ship to get there. I was wondering if there's any possibility of joining your mining operation and earning my way aboard your vessel.\n")
+    delay_print("Durga: Hold on there, friend. I've heard stories about mages like you. Naturally gifted, causing all sorts of trouble, and attracting the unwanted attention of the Starfire Corporation. I can't afford to have my crew and operations in their spotlight.\n")
+    delay_print("Player: I understand your concerns, but I assure you I'm not seeking the limelight or trying to draw attention. I have my own reasons for wanting to explore the hidden realms, away from the corporations' grip. I can offer my magical abilities discreetly, for the benefit of the crew and the success of the mission.\n")
+    delay_print("Durga: That's a bold claim. The last thing I need is trouble. If I let you on board, it's with the understanding that you keep a low profile, no flashy displays of magic. And if any heat comes our way, you're gone. Understood?\n")
+    delay_print("Player: Absolutely, Durga. I appreciate your caution, and I won't jeopardize your crew or your operation. I seek only to contribute and earn my place, using my magic responsibly and discreetly.\n")
+    delay_print("Durga: We'll see about that. We've got a dangerous mining operation in the Outer Rim coming up. If you can prove your worth and keep your magic in check, maybe I'll consider letting you join us. But one wrong move, and you're out. Agreed?\n")
+    delay_print("Player: Agreed, Durga. I won't let you down. Just give me the chance to show you what I can do.\n")
 
     cmds.find_path1_choice()
 
