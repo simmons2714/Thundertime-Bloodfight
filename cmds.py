@@ -2,6 +2,7 @@ import stats
 import json
 import story
 import nouns
+import chat
 
 from simple_term_menu import TerminalMenu
 import questionary
@@ -30,55 +31,36 @@ def story_choice(story_list):
             get_stats()
             continue
         elif question == story_list[0]:
-            stats.usr_choices('accept the tournament invite')
-            story.story_path1_accept()
+            stats.usr_choices(story_list[0])
+            return story_list[0].split(' ')[0]
             break
         elif question == story_list[1]:
-            stats.usr_choices('find a ship')
-            story.story_path1_find()
+            stats.usr_choices(story_list[1])
+            return story_list[1].split(' ')[0]
             break
         elif question == story_list[2]:
-            stats.usr_choices('join Kōnane')
-            story.story_path1_join()
+            stats.usr_choices(story_list[2])
+            return story_list[2].split(' ')[0]
             break
         else:
-            exit()
+            return 'quit'
+            break
+
+def story_chat_choice(chat_list, player_name):
+    chat_list.append('Stop chatting')
+    chatting = True
+    while chatting:
+        question = questionary.select(
+            'Who would you like to talk to?',
+            choices = chat_list
+        ).ask()
+
+        if question in chat_list and question != 'Stop chatting':
+            chat.chat_who(question, player_name)
+            chat_list.remove(question)
+        elif question == 'Stop chatting':
+            break
             
-
-
-def find_path1_choice():
-    choosing = True
-    while choosing:
-        usr_input = input("So I see you've decided to join Durga and find a ship. There are a few things you can do before you make your trip to the Outer Rim. You have the option to chat it up with the crew, attempt to study magic, or skip to the Outer Rim. What will you do? ")
-        usr_input.lower()
-        if usr_input in ('look', 'l', 'chat', 'study magic', 'study', 'skip', 'help', 'h', '1', '2', '3', 'inv', 'i', 'stats', 's'):
-            choosing = False
-            if usr_input == 'stats' or usr_input == 's':
-                choosing = True
-                get_stats()
-            if usr_input == 'inv' or usr_input == 'i':
-                choosing = True
-                inv()
-            if usr_input == 'look' or usr_input == 'l':
-                choosing = True
-                look()
-            if usr_input == 'chat' or usr_input == '1':
-                stats.usr_choices('chat up the crew')
-                #story.story_path1_accept()
-            if usr_input == 'study' or usr_input == '2' or usr_input == 'study magic':
-                stats.usr_choices('study magic')
-                #story.story_path1_find()
-            if usr_input == 'skip' or usr_input == '3':
-                stats.usr_choices('skip to Outer Rim')
-                #story.story_path1_join()
-            if usr_input == 'help' or usr_input == 'h':
-                choosing = True
-                print("l or look for a description of your soundings.\ni or inv for a description of the items in your inventory.\ns or stats for your current stats.\n1 for the first story choice.\n2 for the second story choice. \n3 for the third story choice.\nh or help to print this message again. ")
-        else:
-            print("Invalid choice. Try again. Valid options are: 'look', 'accept', 'find', 'join', 'help', '1', '2', '3', 'inv', 'stats'")
-
-
-
 
 def get_stats():
     f = open('sav1.json')
