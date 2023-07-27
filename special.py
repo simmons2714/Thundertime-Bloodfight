@@ -39,32 +39,34 @@ def get_special_stats():
         "Agility": 1,
         "Luck": 1,
     }
-
+    
     # List of stat names in the order they will be asked
-    stat_names = list(special_stats.keys())
-    for stat_name in stat_names:
-        questions = questionary.text(
-            f'{stat_name}:',
-            validate=SpecialValidator(special_stats, stat_name),
-            default='1'
-        ).ask()
-        answers.update({stat_name: questions})
+    like_stats = False
+    while not like_stats:
+        stat_names = list(special_stats.keys())
+        for stat_name in stat_names:
+            questions = questionary.text(
+                f'{stat_name}:',
+                validate=SpecialValidator(special_stats, stat_name),
+                default='1'
+            ).ask()
+            answers.update({stat_name: questions})
 
-        special_stats[stat_name] = int(answers[stat_name])
+            special_stats[stat_name] = int(answers[stat_name])
 
-    print("\nYour chosen SPECIAL stats:")
-    for stat, value in special_stats.items():
-        print(f"{stat}: {value}")
+        print("\nYour chosen SPECIAL stats:")
+        for stat, value in special_stats.items():
+            print(f"{stat}: {value}")
 
-    unused_points = 40 - sum(special_stats.values())
-    print(f"\nUnused stat points: {unused_points}")
+        unused_points = 40 - sum(special_stats.values())
+        print(f"\nUnused stat points: {unused_points}")
 
-    # Ask the player if they like the stats
-    like_stats = questionary.confirm("Do you like these stats?").ask()
-
-    if like_stats:
-        print("Great! Your character's SPECIAL stats are finalized.")
-    else:
-        print("Feel free to adjust your character's SPECIAL stats.")
+        # Ask the player if they like the stats
+        like_stats = questionary.confirm("Do you like these stats?").ask()
+        
+        if like_stats:
+            print("Great! Your character's SPECIAL stats are finalized.")
+        else:
+            print("Feel free to adjust your character's SPECIAL stats.")
 
     return special_stats.values()
