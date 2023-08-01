@@ -31,7 +31,7 @@ def usr_choices(choice):
     with open(filepath, 'w') as fp:
         json.dump(information, fp, indent=4)
 
-def set_or_update_relationship(noun_name, value):
+def update_relationship(noun_name, value):
     filepath = 'sav1.json'
     with open(filepath, 'r') as fp:
         information = json.load(fp)
