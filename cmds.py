@@ -3,9 +3,14 @@ import json
 import story
 import nouns
 import chat
+import themes
 
 from simple_term_menu import TerminalMenu
+
 import questionary
+from questionary import Style
+from questionary import Separator
+from questionary import Choice
 
 def story_choice(story_list):
     while True:
@@ -52,15 +57,18 @@ def story_chat_choice(chat_list, player_name):
     while chatting:
         question = questionary.select(
             'Who would you like to talk to?',
-            choices = chat_list
+            choices = chat_list,
+            style=themes.custom_style_pretty
         ).ask()
 
         if question in chat_list and question != 'Stop chatting':
             chat.chat_who(question, player_name)
+            chat_list.insert(chat_list.index(question), Choice(question, disabled="You've already talked with this person."))
             chat_list.remove(question)
+
         elif question == 'Stop chatting':
+            chatting = False
             break
-            
 
 def get_stats():
     f = open('sav1.json')
